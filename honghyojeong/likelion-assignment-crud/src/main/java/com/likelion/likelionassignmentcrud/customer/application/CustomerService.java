@@ -19,7 +19,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     @Transactional
-    public void customerSave(CustomerSaveRequestDto customerSaveRequestDto) {
+    public void saveCustomer(CustomerSaveRequestDto customerSaveRequestDto) {
         Customer customer = Customer.builder()
                 .name(customerSaveRequestDto.name())
                 .birthdate(customerSaveRequestDto.birthdate())
@@ -28,7 +28,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public CustomerListResponseDto customerFindAll() {
+    public CustomerListResponseDto getCustomer() {
         List<Customer> customers = customerRepository.findAll();
         List<CustomerInfoResponseDto> customerInfoResponseDtoList = customers.stream()
                 .map(CustomerInfoResponseDto::from)
@@ -37,7 +37,7 @@ public class CustomerService {
     }
 
     // 단일 사용자 조회
-    public CustomerInfoResponseDto customerFindOne(Long customerId) {
+    public CustomerInfoResponseDto getOneCustomer(Long customerId) {
         Customer customer = customerRepository
                 .findById(customerId)
                 .orElseThrow(IllegalArgumentException::new);

@@ -21,8 +21,9 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     @Transactional
-    public void reservationSave(ReservationSaveRequestDto reservationSaveRequestDto) {
-        Customer customer = customerRepository.findById(reservationSaveRequestDto.customerId()).orElseThrow(IllegalArgumentException::new);
+    public void saveReservation(ReservationSaveRequestDto reservationSaveRequestDto) {
+        Customer customer = customerRepository.findById(reservationSaveRequestDto.customerId())
+                .orElseThrow(IllegalArgumentException::new);
 
         Reservation reservation = Reservation.builder()
                 .movie_title(reservationSaveRequestDto.movie_title())
@@ -33,7 +34,8 @@ public class ReservationService {
     }
 
     public ReservationListResponseDto reservationFindCustomer (Long customerId) {
-        Customer customer = customerRepository.findById(customerId).orElseThrow(IllegalArgumentException::new);
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(IllegalArgumentException::new);
         List<Reservation> reservations = reservationRepository.findByCustomer(customer);
         List<ReservationInfoResponseDto> reservationInfoResponseDtos = reservations.stream()
                 .map(ReservationInfoResponseDto::from)

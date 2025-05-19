@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/reservation")
+@RequestMapping("/reservations")
 public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> reservationSave(@RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
-        reservationService.reservationSave(reservationSaveRequestDto);
+    public ResponseEntity<String> saveReservation(@RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
+        reservationService.saveReservation(reservationSaveRequestDto);
         return new ResponseEntity<>("예약 저장", HttpStatus.CREATED);
     }
 
